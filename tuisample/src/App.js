@@ -13,17 +13,22 @@ function App() {
                 .getInstance()
                 .addHook("addImageBlobHook", (blob, callback) => {
                     (async () => {
-                        let formData = new FormData();
-                        formData.append("file", blob);
-
-                        axios.defaults.withCredentials = true;
-                        const { data: url } = await axios.post(
-                            `${backUrl}image.do`,
-                            formData,
-                            {
-                                header: { "content-type": "multipart/formdata" },
-                            }
-                        );
+                      /**
+                       * 이미지 받아오는 함수를 실행합니다.
+                       * blob 은 해당 이미지 파일이에요. 이 파일을 서버로 보내면 돼요.
+                       * 받아온 이미지 주소를 callback 에 인수로 넣고, 두 번째 인수로는 alt 텍스트를 넣을 수 있어요. 아래의 모드는 예시입니다.
+                       */
+                      // let formData = new FormData();
+                        // formData.append("file", blob);
+                        //
+                        // axios.defaults.withCredentials = true;
+                        // const { data: url } = await axios.post(
+                        //     `${backUrl}image.do`,
+                        //     formData,
+                        //     {
+                        //         header: { "content-type": "multipart/formdata" },
+                        //     }
+                        // );
                         callback(url, "alt text");
                     })();
 
@@ -42,6 +47,7 @@ function App() {
                 initialEditType="wysiwyg"
                 useCommandShortcut={true}
                 onChange={() => {
+                  console.log("text changed") // 텍스트 필드의 onchange 함수를 여기서 받을 수 있음
                 }}
                 ref={editorRef}
             />
